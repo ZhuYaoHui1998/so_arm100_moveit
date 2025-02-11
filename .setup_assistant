@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: ""
+    relative_path: /home/nvidia/ws_moveit/src/so_arm100_moveit/urdf/so_arm100.urdf
+    xacro_args: ""
+  SRDF:
+    relative_path: config/so_arm100.srdf
+  CONFIG:
+    author_name: so_arm100
+    author_email: yaohui.zhu@seeed.cc
+    generated_timestamp: 1739264597

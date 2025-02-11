@@ -1,0 +1,12 @@
+controller_list:
+  - name: so_arm100_controller
+    action_ns: follow_joint_trajectory
+    type: FollowJointTrajectory
+    default: True
+    joints:
+      - Shoulder_Rotation
+      - Shoulder_Pitch
+      - Elbow
+      - Wrist_Pitch
+      - Wrist_Roll
+      - Gripper
