@@ -83,7 +83,7 @@ class MoveGroupPythonInterfaceTutorial(object):
         ## If you are using a different robot, change this value to the name of your robot
         ## arm planning group.
         ## This interface can be used to plan and execute motions:
-        group_name = "so_arm100"
+        group_name = "so100"
         move_group = moveit_commander.MoveGroupCommander(group_name)
 
         ## Create a `DisplayTrajectory`_ ROS publisher which is used to display
@@ -134,6 +134,7 @@ class MoveGroupPythonInterfaceTutorial(object):
         # In practice, you should use the class variables directly unless you have a good
         # reason not to.
         move_group = self.move_group
+        
 
         ## BEGIN_SUB_TUTORIAL plan_to_joint_state
         ##
@@ -169,6 +170,8 @@ class MoveGroupPythonInterfaceTutorial(object):
         # In practice, you should use the class variables directly unless you have a good
         # reason not to.
         move_group = self.move_group
+        move_group.set_planning_time(10)
+
 
         ## BEGIN_SUB_TUTORIAL plan_to_pose
         ##
@@ -177,11 +180,15 @@ class MoveGroupPythonInterfaceTutorial(object):
         ## We can plan a motion for this group to a desired pose for the
         ## end-effector:
         pose_goal = geometry_msgs.msg.Pose()
-        pose_goal.orientation.w = 1.000000
         pose_goal.position.x = x
         pose_goal.position.y = y
         pose_goal.position.z = z
-
+        pose_goal.orientation.x = 0.43678765877717673
+        pose_goal.orientation.y = -0.7546079953108277
+        pose_goal.orientation.z = 0.4834513674158861
+        pose_goal.orientation.w = 0.07783373238279621
+        rospy.loginfo("Current Pose: %s", self.move_group.get_current_pose().pose)
+        rospy.loginfo("Target Pose: %s", pose_goal)
         move_group.set_pose_target(pose_goal)
 
         ## Now, we call the planner to compute the plan and execute it.
@@ -203,7 +210,7 @@ class MoveGroupPythonInterfaceTutorial(object):
 
 def main():
     tutorial = MoveGroupPythonInterfaceTutorial()
-    tutorial.go_to_pose_goal(0.010000,-0.1700000,0.1400000)
+    tutorial.go_to_pose_goal(0.032094574608958880,-0.110272718778082,0.28214178469831857)  #(Y-左 +右\-上 +下\Z)
 
 
 if __name__ == "__main__":

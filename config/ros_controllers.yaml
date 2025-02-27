@@ -1,12 +1,11 @@
-so_arm100_controller:
-  type: position_controllers/JointTrajectoryController
+so100_controller:
+  type: effort_controllers/JointTrajectoryController
   joints:
     - Shoulder_Rotation
     - Shoulder_Pitch
     - Elbow
     - Wrist_Pitch
     - Wrist_Roll
-    - Gripper
   gains:
     Shoulder_Rotation:
       p: 100
@@ -29,11 +28,6 @@ so_arm100_controller:
       i: 1
       i_clamp: 1
     Wrist_Roll:
-      p: 100
-      d: 1
-      i: 1
-      i_clamp: 1
-    Gripper:
       p: 100
       d: 1
       i: 1

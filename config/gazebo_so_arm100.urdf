@@ -47,11 +47,12 @@
             </geometry>
         </collision>
     </link>
-    <joint name="Shoulder_Rotation" type="continuous">
+    <joint name="Shoulder_Rotation" type="revolute">
         <origin xyz="0 -0.0452 0.0181" rpy="1.5708 0 1.5708" />
         <parent link="Base" />
         <child link="Shoulder_Rotation_Pitch" />
         <axis xyz="0 1 0" />
+        <limit lower="-1.5708" upper="1.5708" effort="10" velocity="1.0" />
     </joint>
     <link name="Upper_Arm">
         <inertial>
@@ -75,11 +76,12 @@
             </geometry>
         </collision>
     </link>
-    <joint name="Shoulder_Pitch" type="continuous">
+    <joint name="Shoulder_Pitch" type="revolute">
         <origin xyz="0.000125 0.1086 0" rpy="3.1416 0 -1.5708" />
         <parent link="Shoulder_Rotation_Pitch" />
         <child link="Upper_Arm" />
         <axis xyz="0 0 1" />
+        <limit lower="-1.5708" upper="1.5708" effort="10" velocity="1.0" />
     </joint>
     <link name="Lower_Arm">
         <inertial>
@@ -103,11 +105,12 @@
             </geometry>
         </collision>
     </link>
-    <joint name="Elbow" type="continuous">
+    <joint name="Elbow" type="revolute">
         <origin xyz="-0.11238 0.0282 0" rpy="0 0 -2.2391" />
         <parent link="Upper_Arm" />
         <child link="Lower_Arm" />
         <axis xyz="0 0 1" />
+        <limit lower="-0.7" upper="2.322" effort="10" velocity="1.0" />
     </joint>
     <link name="Wrist_Pitch_Roll">
         <inertial>
@@ -131,11 +134,12 @@
             </geometry>
         </collision>
     </link>
-    <joint name="Wrist_Pitch" type="continuous">
+    <joint name="Wrist_Pitch" type="revolute">
         <origin xyz="-0.1102 0.005375 0" rpy="0.90254 1.5708 0" />
         <parent link="Lower_Arm" />
         <child link="Wrist_Pitch_Roll" />
         <axis xyz="1 0 0" />
+        <limit lower="-2.7902" upper="0.75" effort="10" velocity="1.0" />
     </joint>
     <link name="Fixed_Gripper">
         <inertial>
@@ -159,11 +163,12 @@
             </geometry>
         </collision>
     </link>
-    <joint name="Wrist_Roll" type="continuous">
+    <joint name="Wrist_Roll" type="revolute">
         <origin xyz="0 0.002 -0.0545" rpy="3.1416 0 3.1416" />
         <parent link="Wrist_Pitch_Roll" />
         <child link="Fixed_Gripper" />
         <axis xyz="0 0 1" />
+        <limit lower="-3.1415" upper="3.1415" effort="10" velocity="1.0" />
     </joint>
     <link name="Moving_Jaw">
         <inertial>
@@ -187,69 +192,70 @@
             </geometry>
         </collision>
     </link>
-    <joint name="Gripper" type="continuous">
+    <joint name="Gripper" type="revolute">
         <origin xyz="0.0202 0 0.024375" rpy="-1.5708 0 0" />
         <parent link="Fixed_Gripper" />
         <child link="Moving_Jaw" />
         <axis xyz="0 0 1" />
+        <limit lower="0" upper="1.5708" effort="10" velocity="1.0" />
     </joint>
     <transmission name="trans_Shoulder_Rotation">
         <type>transmission_interface/SimpleTransmission</type>
         <joint name="Shoulder_Rotation">
-            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
         </joint>
         <actuator name="Shoulder_Rotation_motor">
-            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
             <mechanicalReduction>1</mechanicalReduction>
         </actuator>
     </transmission>
     <transmission name="trans_Shoulder_Pitch">
         <type>transmission_interface/SimpleTransmission</type>
         <joint name="Shoulder_Pitch">
-            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
         </joint>
         <actuator name="Shoulder_Pitch_motor">
-            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
             <mechanicalReduction>1</mechanicalReduction>
         </actuator>
     </transmission>
     <transmission name="trans_Elbow">
         <type>transmission_interface/SimpleTransmission</type>
         <joint name="Elbow">
-            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
         </joint>
         <actuator name="Elbow_motor">
-            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
             <mechanicalReduction>1</mechanicalReduction>
         </actuator>
     </transmission>
     <transmission name="trans_Wrist_Pitch">
         <type>transmission_interface/SimpleTransmission</type>
         <joint name="Wrist_Pitch">
-            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
         </joint>
         <actuator name="Wrist_Pitch_motor">
-            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
             <mechanicalReduction>1</mechanicalReduction>
         </actuator>
     </transmission>
     <transmission name="trans_Wrist_Roll">
         <type>transmission_interface/SimpleTransmission</type>
         <joint name="Wrist_Roll">
-            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
         </joint>
         <actuator name="Wrist_Roll_motor">
-            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
             <mechanicalReduction>1</mechanicalReduction>
         </actuator>
     </transmission>
     <transmission name="trans_Gripper">
         <type>transmission_interface/SimpleTransmission</type>
         <joint name="Gripper">
-            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
         </joint>
         <actuator name="Gripper_motor">
-            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
             <mechanicalReduction>1</mechanicalReduction>
         </actuator>
     </transmission>

@@ -6,6 +6,6 @@
 
   <!-- Load the controllers -->
   <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
-    output="screen" args="so_arm100_controller "/>
+    output="screen" args="so100_controller "/>
 
 </launch>

@@ -1,5 +1,5 @@
 controller_list:
-  - name: fake_so_arm100_controller
+  - name: fake_so100_controller
     type: $(arg fake_execution_type)
     joints:
       - Shoulder_Rotation
@@ -7,9 +7,6 @@ controller_list:
       - Elbow
       - Wrist_Pitch
       - Wrist_Roll
-      - Gripper
 initial:  # Define initial robot poses per group
-#  - group: so_arm100
-#    pose: home
-
-  []
+  - group: so100
+    pose: init_pose

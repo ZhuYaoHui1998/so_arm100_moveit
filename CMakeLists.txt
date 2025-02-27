@@ -8,7 +8,9 @@ find_package(catkin REQUIRED COMPONENTS
   std_msgs
 )
 
+
 catkin_package()
+
 
 catkin_install_python(PROGRAMS
   scripts/moveit_python.py 
@@ -19,6 +21,7 @@ catkin_install_python(PROGRAMS
   scripts/move_target.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
+
 
 install(DIRECTORY launch DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
   PATTERN "setup_assistant.launch" EXCLUDE)

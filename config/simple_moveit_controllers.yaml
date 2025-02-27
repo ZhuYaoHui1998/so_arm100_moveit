@@ -1,5 +1,5 @@
 controller_list:
-  - name: so_arm100_controller
+  - name: so100_controller
     action_ns: follow_joint_trajectory
     type: FollowJointTrajectory
     default: True
@@ -9,4 +9,3 @@ controller_list:
       - Elbow
       - Wrist_Pitch
       - Wrist_Roll
-      - Gripper
