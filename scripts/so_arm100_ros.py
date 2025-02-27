@@ -2,7 +2,7 @@
 #### 读取每个舵机角度 Demo1
 
 # from lerobot.common.robot_devices.motors.feetech import *
-# from lerobot.common.robot_devices.robots.configs import So100RobotConfig
+# from .configs import So100RobotConfig
 # from lerobot.common.robot_devices.robots.manipulator import ManipulatorRobot
 # import numpy as np
 
@@ -24,31 +24,31 @@
 # ############################################################################################
 # ##### 开启力矩自锁 Demo2
 
-from lerobot.common.robot_devices.motors.feetech import *
-from lerobot.common.robot_devices.robots.configs import So100RobotConfig
-from lerobot.common.robot_devices.robots.manipulator import ManipulatorRobot
-import numpy as np
+# from lerobot.common.robot_devices.motors.feetech import *
+# from .configs import So100RobotConfig
+# from lerobot.common.robot_devices.robots.manipulator import ManipulatorRobot
+# import numpy as np
 
-so_arm100_configs=So100RobotConfig()
+# so_arm100_configs=So100RobotConfig()
 
-config = FeetechMotorsBusConfig(
-    port=so_arm100_configs.follower_arms["main"].port,
-    motors=so_arm100_configs.follower_arms["main"].motors
-)
+# config = FeetechMotorsBusConfig(
+#     port=so_arm100_configs.follower_arms["main"].port,
+#     motors=so_arm100_configs.follower_arms["main"].motors
+# )
 
-robot = ManipulatorRobot(so_arm100_configs)
+# robot = ManipulatorRobot(so_arm100_configs)
 
-robot.connect()
-#robot.follower_arms["main"].write("Torque_Enable", TorqueMode.DISABLED.value)  #关闭
-robot.follower_arms["main"].write("Torque_Enable", TorqueMode.ENABLED.value)  # 开启
-robot.disconnect()
+# robot.connect()
+# #robot.follower_arms["main"].write("Torque_Enable", TorqueMode.DISABLED.value)  #关闭
+# robot.follower_arms["main"].write("Torque_Enable", TorqueMode.ENABLED.value)  # 开启
+# robot.disconnect()
 
 # ########################################################################################
 # ######让机械臂每个关节达到指定角度 Demo3
 
 
 # from lerobot.common.robot_devices.motors.feetech import *
-# from lerobot.common.robot_devices.robots.configs import So100RobotConfig
+# from .configs import So100RobotConfig
 # from lerobot.common.robot_devices.robots.manipulator import ManipulatorRobot
 # import numpy as np
 
@@ -71,7 +71,7 @@ robot.disconnect()
 ######手动控制机械臂N次记录当前位置，并依次执行 Demo4
 
 # from lerobot.common.robot_devices.motors.feetech import *
-# from lerobot.common.robot_devices.robots.configs import So100RobotConfig
+# from .configs import So100RobotConfig
 # from lerobot.common.robot_devices.robots.manipulator import ManipulatorRobot
 # import numpy as np
 # import time
@@ -135,7 +135,7 @@ import rospy
 from sensor_msgs.msg import JointState
 import numpy as np
 from lerobot.common.robot_devices.motors.feetech import *
-from lerobot.common.robot_devices.robots.configs import So100RobotConfig
+from .configs import So100RobotConfig
 from lerobot.common.robot_devices.robots.manipulator import ManipulatorRobot
 
 class JointStateSubscriber:
