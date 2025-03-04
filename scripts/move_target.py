@@ -4,11 +4,15 @@ from six.moves import input
 
 import sys
 import copy
+import time
+
+import tf
 import rospy
 import moveit_commander
 import moveit_msgs.msg
 import geometry_msgs.msg
-
+from visualization_msgs.msg import Marker
+from geometry_msgs.msg import Point, Pose, Quaternion
 try:
     from math import pi, tau, dist, fabs, cos
 except:  # For Python 2 compatibility
@@ -165,7 +169,7 @@ class MoveGroupPythonInterfaceTutorial(object):
         current_joints = move_group.get_current_joint_values()
         return all_close(joint_goal, current_joints, 0.01)
 
-    def go_to_pose_goal(self,x,y,z):
+    def go_to_pose_goal(self, pose_goal):
         # Copy class variables to local variables to make the web tutorials more clear.
         # In practice, you should use the class variables directly unless you have a good
         # reason not to.
@@ -179,14 +183,7 @@ class MoveGroupPythonInterfaceTutorial(object):
         ## ^^^^^^^^^^^^^^^^^^^^^^^
         ## We can plan a motion for this group to a desired pose for the
         ## end-effector:
-        pose_goal = geometry_msgs.msg.Pose()
-        pose_goal.position.x = x
-        pose_goal.position.y = y
-        pose_goal.position.z = z
-        pose_goal.orientation.x = 0.43678765877717673
-        pose_goal.orientation.y = -0.7546079953108277
-        pose_goal.orientation.z = 0.4834513674158861
-        pose_goal.orientation.w = 0.07783373238279621
+
         rospy.loginfo("Current Pose: %s", self.move_group.get_current_pose().pose)
         rospy.loginfo("Target Pose: %s", pose_goal)
         move_group.set_pose_target(pose_goal)
@@ -207,11 +204,48 @@ class MoveGroupPythonInterfaceTutorial(object):
         # we use the class variable rather than the copied state variable
         current_pose = self.move_group.get_current_pose().pose
         return all_close(pose_goal, current_pose, 0.01)
+    
+
+def visualize_pose(bc, pose):
+    # rospy.init_node('point_visualizer')
+   
+    # Publish continuously
+    rate = rospy.Rate(10)
+    starttime = time.time()
+    while not rospy.is_shutdown():
+        bc.sendTransform(
+            (pose.position.x, pose.position.y, pose.position.z),
+            (pose.orientation.x, pose.orientation.y, pose.orientation.z, pose.orientation.w),
+            rospy.Time.now(),  # Timestamp
+            "goalpose_frame",     # Child frame
+            "world"         # Parent frame
+        )
+        rate.sleep()
+        if time.time() - starttime > 1:
+            break
+
 
 def main():
     tutorial = MoveGroupPythonInterfaceTutorial()
-    tutorial.go_to_pose_goal(0.032094574608958880,-0.110272718778082,0.28214178469831857)  #(Y-左 +右\-上 +下\Z)
+    robot = tutorial.robot
+    scene = tutorial.scene
+    move_group = tutorial.move_group
 
+    bc = tf.TransformBroadcaster()
+
+    x, y, z = 0.0,-0.15,0.25
+    roll, pitch, yaw = 0.0, -pi/2, pi/2
+
+    pose = Pose()
+    pose.position.x = x
+    pose.position.y = y
+    pose.position.z = z
+    pose.orientation = Quaternion(*tf.transformations.quaternion_from_euler(roll, pitch, yaw))
+
+    visualize_pose(bc, pose)
+    tutorial.go_to_pose_goal(pose)
+
+    from IPython import embed; embed()
 
 if __name__ == "__main__":
     main()

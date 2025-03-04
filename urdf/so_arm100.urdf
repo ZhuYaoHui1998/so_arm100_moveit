@@ -26,7 +26,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://so_arm100/meshes/Base.STL" />
+          filename="package://so_arm100_moveit/meshes/Base.STL" />
       </geometry>
       <material
         name="">
@@ -40,7 +40,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://so_arm100/meshes/Base.STL" />
+          filename="package://so_arm100_moveit/meshes/Base.STL" />
       </geometry>
     </collision>
   </link>
@@ -66,7 +66,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://so_arm100/meshes/Shoulder_Rotation_Pitch.STL" />
+          filename="package://so_arm100_moveit/meshes/Shoulder_Rotation_Pitch.STL" />
       </geometry>
       <material
         name="">
@@ -80,7 +80,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://so_arm100/meshes/Shoulder_Rotation_Pitch.STL" />
+          filename="package://so_arm100_moveit/meshes/Shoulder_Rotation_Pitch.STL" />
       </geometry>
     </collision>
   </link>
@@ -120,7 +120,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://so_arm100/meshes/Upper_Arm.STL" />
+          filename="package://so_arm100_moveit/meshes/Upper_Arm.STL" />
       </geometry>
       <material
         name="">
@@ -134,7 +134,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://so_arm100/meshes/Upper_Arm.STL" />
+          filename="package://so_arm100_moveit/meshes/Upper_Arm.STL" />
       </geometry>
     </collision>
   </link>
@@ -175,7 +175,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://so_arm100/meshes/Lower_Arm.STL" />
+          filename="package://so_arm100_moveit/meshes/Lower_Arm.STL" />
       </geometry>
       <material
         name="">
@@ -189,7 +189,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://so_arm100/meshes/Lower_Arm.STL" />
+          filename="package://so_arm100_moveit/meshes/Lower_Arm.STL" />
       </geometry>
     </collision>
   </link>
@@ -230,7 +230,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://so_arm100/meshes/Wrist_Pitch_Roll.STL" />
+          filename="package://so_arm100_moveit/meshes/Wrist_Pitch_Roll.STL" />
       </geometry>
       <material
         name="">
@@ -244,7 +244,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://so_arm100/meshes/Wrist_Pitch_Roll.STL" />
+          filename="package://so_arm100_moveit/meshes/Wrist_Pitch_Roll.STL" />
       </geometry>
     </collision>
   </link>
@@ -284,7 +284,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://so_arm100/meshes/Fixed_Gripper.STL" />
+          filename="package://so_arm100_moveit/meshes/Fixed_Gripper.STL" />
       </geometry>
       <material
         name="">
@@ -298,7 +298,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://so_arm100/meshes/Fixed_Gripper.STL" />
+          filename="package://so_arm100_moveit/meshes/Fixed_Gripper.STL" />
       </geometry>
     </collision>
   </link>
@@ -338,7 +338,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://so_arm100/meshes/Moving_Jaw.STL" />
+          filename="package://so_arm100_moveit/meshes/Moving_Jaw.STL" />
       </geometry>
       <material
         name="">
@@ -352,7 +352,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://so_arm100/meshes/Moving_Jaw.STL" />
+          filename="package://so_arm100_moveit/meshes/Moving_Jaw.STL" />
       </geometry>
     </collision>
   </link>
