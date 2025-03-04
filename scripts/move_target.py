@@ -206,28 +206,20 @@ class MoveGroupPythonInterfaceTutorial(object):
         return all_close(pose_goal, current_pose, 0.01)
     
 
-def visualize_pose(pub, pose):
+def visualize_pose(bc, pose):
     # rospy.init_node('point_visualizer')
    
-    marker = Marker()
-    marker.header.frame_id = "world" 
-    marker.type = Marker.ARROW
-    marker.action = Marker.ADD
-    marker.scale.x = 0.05
-    marker.scale.y = 0.005
-    marker.scale.z = 0.005
-    marker.color.a = 1.0  # Alpha
-    marker.color.r = 1.0  # Red
-    marker.color.g = 0.0
-    marker.color.b = 0.0
-    marker.pose = pose
-    
     # Publish continuously
     rate = rospy.Rate(10)
     starttime = time.time()
     while not rospy.is_shutdown():
-        marker.header.stamp = rospy.Time.now()
-        pub.publish(marker)
+        bc.sendTransform(
+            (pose.position.x, pose.position.y, pose.position.z),
+            (pose.orientation.x, pose.orientation.y, pose.orientation.z, pose.orientation.w),
+            rospy.Time.now(),  # Timestamp
+            "goalpose_frame",     # Child frame
+            "world"         # Parent frame
+        )
         rate.sleep()
         if time.time() - starttime > 1:
             break
@@ -239,19 +231,19 @@ def main():
     scene = tutorial.scene
     move_group = tutorial.move_group
 
-    pub = rospy.Publisher('/visualization_marker', Marker, queue_size=10)
+    bc = tf.TransformBroadcaster()
 
-    x, y, z = 0.032094574608958880,-0.110272718778082,0.28214178469831857
-    pose = geometry_msgs.msg.Pose()
+    x, y, z = 0.0,-0.15,0.25
+    roll, pitch, yaw = 0.0, -pi/2, pi/2
+
+    pose = Pose()
     pose.position.x = x
     pose.position.y = y
     pose.position.z = z
-    roll, pitch, yaw = 0.0, 0.0, -pi/2      # Orientation in radians (Z-axis rotation)
-    q = tf.transformations.quaternion_from_euler(roll, pitch, yaw)
-    pose.orientation = Quaternion(*q)      # Convert to Quaternion
+    pose.orientation = Quaternion(*tf.transformations.quaternion_from_euler(roll, pitch, yaw))
 
-    visualize_pose(pub, pose)
-    tutorial.go_to_pose_goal(pose)  #(Y-左 +右\-上 +下\Z)
+    visualize_pose(bc, pose)
+    tutorial.go_to_pose_goal(pose)
 
     from IPython import embed; embed()
 

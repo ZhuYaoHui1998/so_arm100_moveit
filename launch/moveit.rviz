@@ -39,7 +39,49 @@ Visualization Manager:
       Enabled: true
       Name: MotionPlanning
       Planned Path:
-        Links: ~
+        Color Enabled: false
+        Interrupt Display: false
+        Links:
+          All Links Enabled: true
+          Base:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          Expand Joint Details: false
+          Expand Link Details: false
+          Expand Tree: false
+          Fixed_Gripper:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          Link Tree Style: Links in Alphabetic Order
+          Lower_Arm:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          Moving_Jaw:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          Shoulder_Rotation_Pitch:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          Upper_Arm:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          Wrist_Pitch_Roll:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
         Loop Animation: true
         Robot Alpha: 0.5
         Show Robot Collision: false
@@ -73,24 +115,103 @@ Visualization Manager:
         Voxel Rendering: Occupied Voxels
       Scene Robot:
         Attached Body Color: 150; 50; 150
-        Links: ~
+        Links:
+          All Links Enabled: true
+          Base:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          Expand Joint Details: false
+          Expand Link Details: false
+          Expand Tree: false
+          Fixed_Gripper:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          Link Tree Style: Links in Alphabetic Order
+          Lower_Arm:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          Moving_Jaw:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          Shoulder_Rotation_Pitch:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          Upper_Arm:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          Wrist_Pitch_Roll:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
         Robot Alpha: 0.5
         Show Robot Collision: false
         Show Robot Visual: true
       Value: true
       Velocity_Scaling_Factor: 1
-    - Class: rviz/Marker
+    - Class: rviz/TF
       Enabled: true
-      Marker Topic: visualization_marker
-      Name: Marker
-      Namespaces:
-        {}
-      Queue Size: 100
+      Filter (blacklist): ""
+      Filter (whitelist): ""
+      Frame Timeout: 15
+      Frames:
+        All Enabled: false
+        Base:
+          Value: false
+        Fixed_Gripper:
+          Value: true
+        Lower_Arm:
+          Value: false
+        Moving_Jaw:
+          Value: false
+        Shoulder_Rotation_Pitch:
+          Value: false
+        Upper_Arm:
+          Value: false
+        Wrist_Pitch_Roll:
+          Value: false
+        goalpose_frame:
+          Value: true
+        world:
+          Value: false
+      Marker Alpha: 1
+      Marker Scale: 1
+      Name: TF
+      Show Arrows: true
+      Show Axes: true
+      Show Names: true
+      Tree:
+        world:
+          Base:
+            Shoulder_Rotation_Pitch:
+              Upper_Arm:
+                Lower_Arm:
+                  Wrist_Pitch_Roll:
+                    Fixed_Gripper:
+                      Moving_Jaw:
+                        {}
+          goalpose_frame:
+            {}
+      Update Interval: 0
       Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
+    Default Light: true
     Fixed Frame: Base
+    Frame Rate: 30
   Name: root
   Tools:
     - Class: rviz/Interact
@@ -101,25 +222,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 2.0
+      Distance: 1.3396836519241333
       Enable Stereo Rendering:
-        Stereo Eye Separation: 0.06
+        Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Field of View: 0.75
       Focal Point:
-        X: -0.1
-        Y: 0.25
-        Z: 0.30
+        X: -0.041379570960998535
+        Y: -0.039340682327747345
+        Z: 0.19130510091781616
       Focal Shape Fixed Size: true
-      Focal Shape Size: 0.05
+      Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
-      Near Clip Distance: 0.01
-      Pitch: 0.5
+      Near Clip Distance: 0.009999999776482582
+      Pitch: 0.14499875903129578
       Target Frame: Base
-      Yaw: -0.6232355833053589
+      Yaw: 6.234916687011719
     Saved: ~
 Window Geometry:
   Displays:
