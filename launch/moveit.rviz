@@ -75,7 +75,17 @@ Visualization Manager:
         Attached Body Color: 150; 50; 150
         Links: ~
         Robot Alpha: 0.5
-        Show Scene Robot: true
+        Show Robot Collision: false
+        Show Robot Visual: true
+      Value: true
+      Velocity_Scaling_Factor: 1
+    - Class: rviz/Marker
+      Enabled: true
+      Marker Topic: visualization_marker
+      Name: Marker
+      Namespaces:
+        {}
+      Queue Size: 100
       Value: true
   Enabled: true
   Global Options:
