@@ -5,9 +5,11 @@ from six.moves import input
 import sys
 import copy
 import rospy
+import tf
 import moveit_commander
 import moveit_msgs.msg
 import geometry_msgs.msg
+from geometry_msgs.msg import Point, Pose, Quaternion
 
 try:
     from math import pi, tau, dist, fabs, cos
@@ -83,7 +85,7 @@ class MoveGroupPythonInterfaceTutorial(object):
         ## If you are using a different robot, change this value to the name of your robot
         ## arm planning group.
         ## This interface can be used to plan and execute motions:
-        group_name = "so_arm100"
+        group_name = "so100"
         move_group = moveit_commander.MoveGroupCommander(group_name)
 
         ## Create a `DisplayTrajectory`_ ROS publisher which is used to display
@@ -145,11 +147,10 @@ class MoveGroupPythonInterfaceTutorial(object):
         # We get the joint values from the group and change some of the values:
         joint_goal = move_group.get_current_joint_values()
         joint_goal[0] = 0
-        joint_goal[1] = -tau / 8
+        joint_goal[1] = pi/2
         joint_goal[2] = 0
-        joint_goal[3] = -tau / 4
-        joint_goal[4] = 0
-        joint_goal[5] = tau / 6  # 1/6 of a turn
+        joint_goal[3] = 0
+        joint_goal[4] = -pi/2
 
         # The go command can be called with joint values, poses, or without any
         # parameters if you have already set the pose or joint target for the group
@@ -164,7 +165,7 @@ class MoveGroupPythonInterfaceTutorial(object):
         current_joints = move_group.get_current_joint_values()
         return all_close(joint_goal, current_joints, 0.01)
 
-    def go_to_pose_goal(self,x,y,z):
+    def go_to_pose_goal(self, pose_goal):
         # Copy class variables to local variables to make the web tutorials more clear.
         # In practice, you should use the class variables directly unless you have a good
         # reason not to.
@@ -176,12 +177,6 @@ class MoveGroupPythonInterfaceTutorial(object):
         ## ^^^^^^^^^^^^^^^^^^^^^^^
         ## We can plan a motion for this group to a desired pose for the
         ## end-effector:
-        pose_goal = geometry_msgs.msg.Pose()
-        pose_goal.orientation.w = 1.000000
-        pose_goal.position.x = x
-        pose_goal.position.y = y
-        pose_goal.position.z = z
-
         move_group.set_pose_target(pose_goal)
 
         ## Now, we call the planner to compute the plan and execute it.
@@ -345,9 +340,9 @@ class MoveGroupPythonInterfaceTutorial(object):
         ## ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
         ## First, we will create a box in the planning scene between the fingers:
         box_pose = geometry_msgs.msg.PoseStamped()
-        box_pose.header.frame_id = "so_arm100"
+        box_pose.header.frame_id = "Fixed_Gripper"
         box_pose.pose.orientation.w = 1.0
-        box_pose.pose.position.z = 0.11  # above the panda_hand frame
+        box_pose.pose.position.z = 0.11  # above the hand frame
         box_name = "box"
         scene.add_box(box_name, box_pose, size=(0.075, 0.075, 0.075))
 
@@ -377,7 +372,7 @@ class MoveGroupPythonInterfaceTutorial(object):
         ## planning scene to ignore collisions between those links and the box. For the Panda
         ## robot, we set ``grasping_group = 'panda_hand'``. If you are using a different robot,
         ## you should change this value to the name of your end effector group name.
-        grasping_group = "so_arm100"
+        grasping_group = "so100"
         touch_links = robot.get_link_names(group=grasping_group)
         scene.attach_box(eef_link, box_name, touch_links=touch_links)
         ## END_SUB_TUTORIAL
@@ -450,7 +445,16 @@ def main():
         tutorial.go_to_joint_state()
 
         input("============ Press `Enter` to execute a movement using a pose goal ...")
-        tutorial.go_to_pose_goal(0.010000,-0.1700000,0.1400000)
+
+        x, y, z = 0.0,-0.15,0.25
+        roll, pitch, yaw = 0.0, -pi/2, pi/2
+        initial_pose = Pose()
+        initial_pose.position.x = x
+        initial_pose.position.y = y
+        initial_pose.position.z = z
+        initial_pose.orientation = Quaternion(*tf.transformations.quaternion_from_euler(roll, pitch, yaw))
+
+        tutorial.go_to_pose_goal(initial_pose)
 
         input("============ Press `Enter` to plan and display a Cartesian path ...")
         cartesian_plan, fraction = tutorial.plan_cartesian_path()
@@ -466,7 +470,7 @@ def main():
         input("============ Press `Enter` to add a box to the planning scene ...")
         tutorial.add_box()
 
-        input("============ Press `Enter` to attach a Box to the Panda robot ...")
+        input("============ Press `Enter` to attach a Box to the robot ...")
         tutorial.attach_box()
 
         input(
@@ -475,7 +479,7 @@ def main():
         cartesian_plan, fraction = tutorial.plan_cartesian_path(scale=-1)
         tutorial.execute_plan(cartesian_plan)
 
-        input("============ Press `Enter` to detach the box from the Panda robot ...")
+        input("============ Press `Enter` to detach the box from the robot ...")
         tutorial.detach_box()
 
         input(
@@ -488,13 +492,6 @@ def main():
         return
     except KeyboardInterrupt:
         return
-
-
-
-# def main():
-#     tutorial = MoveGroupPythonInterfaceTutorial()
-#     tutorial.go_to_pose_goal(0.010000,-0.1700000,0.1400000)
-
 
 if __name__ == "__main__":
     main()
